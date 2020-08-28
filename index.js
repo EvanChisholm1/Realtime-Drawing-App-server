@@ -2,8 +2,11 @@ const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+require('dotenv').config();
 
 const users = ['user a', 'user b']
+
+app.get('/', (req, res) => res.send('it works'))
 
 io.on('connection', socket => {
     console.log('connected')
@@ -17,6 +20,6 @@ io.on('connection', socket => {
     })
 })
 
-http.listen(4000, () => {
+http.listen(process.env.PORT || 4000, () => {
     console.log('listening on port 4000')
 });
